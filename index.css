@@ -1,0 +1,26 @@
+html{
+	background: url(images/bg_hd.png) no-repeat center center fixed;
+}
+
+#clocks {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	position: absolute;
+	bottom: 50px;
+	width: 100%;
+}
+
+p.label {
+	color: #aaa;
+	font-family: Verdana, sans-serif;
+	font-size: large;
+	text-align: center;
+}
+
+.container {
+	margin: 20px;
+	width: 200px;
+	height: 200px;
+	position: relative;
+}

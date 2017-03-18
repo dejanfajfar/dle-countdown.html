@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DLE countdown</title>
+	<script src="scripts/progressbar.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+	<link href="index.css" rel="stylesheet"/>
+</head>
+<body>
+
+	<div id="clocks">
+		<div id="days">
+			<div id="days_container" class="container"></div>
+			<p class="label">DAYS</p>
+		</div>
+
+		<div id="hours">
+			<div id="hours_container" class="container"></div>
+			<p class="label">HOURS</p>
+		</div>
+
+		<div id="minutes">
+			<div id="minutes_container" class="container"></div>
+			<p class="label">MINUTES</p>
+		</div>
+
+		<div id="seconds">
+			<div id="seconds_container" class="container"></div>
+			<p class="label">SECONDS</p>
+		</div>
+	</div>
+
+
+
+	<script>
+		var end_time= '2018-04-01T10:00:00';
+
+		function getTimeRemaining(endtime){
+			var t = Date.parse(endtime) - Date.parse(new Date());
+			var seconds = Math.floor( (t/1000) % 60 );
+			var minutes = Math.floor( (t/1000/60) % 60 );
+			var hours = Math.floor( (t/(1000*60*60)) % 24 );
+			var days = Math.floor( t/(1000*60*60*24) );
+			return {
+				'total': t,
+				'days': days,
+				'hours': hours,
+				'minutes': minutes,
+				'seconds': seconds
+			};
+		}
+
+		function getProgressBar(container, breakAt, baseColor, barColor)  {
+			return new ProgressBar.Circle(container, {
+				color: baseColor,
+				strokeWidth: 4,
+				trailWidth: 1,
+				easing: 'easeInOut',
+				duration: 500,
+				text: {
+					autoStyleContainer: false
+				},
+				from: { color: barColor, width: 4 },
+				to: { color: barColor, width: 4 },
+				// Set default step function for all animate calls
+				step: function(state, circle) {
+					circle.path.setAttribute('stroke', state.color);
+					circle.path.setAttribute('stroke-width', state.width);
+
+					var value = Math.round(circle.value() * breakAt);
+					circle.setText(value);
+				}
+			});
+		}
+
+		var bar_seconds = getProgressBar(document.getElementById('seconds_container'), 60, '#aaa', '#e56cab');
+		bar_seconds.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+		bar_seconds.text.style.fontSize = '4rem';
+
+		var bar_minutes = getProgressBar(document.getElementById('minutes_container'), 60, '#aaa', '#5a5bb2');
+		bar_minutes.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+		bar_minutes.text.style.fontSize = '4rem';
+
+		var bar_hours = getProgressBar(document.getElementById('hours_container'), 24, '#aaa', '#14d390');
+		bar_hours.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+		bar_hours.text.style.fontSize = '4rem';
+
+		var bar_days = getProgressBar(document.getElementById('days_container'), 424, '#aaa', '#f8f687');
+		bar_days.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+		bar_days.text.style.fontSize = '4rem';
+
+
+		window.setInterval(
+			function(){
+				var time = getTimeRemaining(end_time);
+				bar_seconds.animate(time.seconds / 60);
+				bar_minutes.animate(time.minutes / 60);
+				bar_hours.animate(time.hours / 24);
+				bar_days.animate(time.days / 424);
+			}, 1000
+		)
+	</script>
+</body>
+</html>

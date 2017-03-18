@@ -1,0 +1,19 @@
+{
+  "name": "dle-countdown.html",
+  "version": "1.0.0",
+  "description": "A simple countdown timer",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dejanfajfar/dle-countdown.html.git"
+  },
+  "author": "Dejan Fajfar <dejan@fajfar.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dejanfajfar/dle-countdown.html/issues"
+  },
+  "homepage": "https://github.com/dejanfajfar/dle-countdown.html#readme"
+}
